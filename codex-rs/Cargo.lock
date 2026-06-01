@@ -2446,6 +2446,21 @@ name = "codex-collaboration-mode-templates"
 version = "0.0.0"
 
 [[package]]
+name = "codex-compaction-repair"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap",
+ "codex-utils-home-dir",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "tempfile",
+ "tokio",
+]
+
+[[package]]
 name = "codex-config"
 version = "0.0.0"
 dependencies = [

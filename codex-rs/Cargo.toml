@@ -27,6 +27,7 @@ members = [
     "cloud-tasks-mock-client",
     "cli",
     "collaboration-mode-templates",
+    "compaction-repair",
     "connectors",
     "config",
     "shell-command",
