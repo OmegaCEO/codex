@@ -22,7 +22,7 @@ docker run --rm \
   -v "$REPO_ROOT:/workspace" \
   -w /workspace \
   "$IMAGE_NAME" \
-  bash -lc './scripts/chima/build-codex-chima-v1-linux.sh'
+  bash -c 'export PATH="/usr/local/cargo/bin:$PATH"; ./scripts/chima/build-codex-chima-v1-linux.sh'
 
 mkdir -p "$ARTIFACT_DIR"
 cp "$REPO_ROOT/codex-rs/target-chima-linux/release/codex-chima-v1" "$ARTIFACT_DIR/codex-chima-v1"
