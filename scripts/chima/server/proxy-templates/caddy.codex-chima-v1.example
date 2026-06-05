@@ -1,0 +1,25 @@
+# Disabled example only. Do not paste into an active Caddyfile until the hostname
+# and access gate are chosen.
+#
+# Replace codex-chima.example.com and enable exactly one access control layer:
+# Cloudflare Access, Tailscale-only ingress, VPN-only ingress, or Caddy basicauth.
+
+codex-chima.example.com {
+    encode zstd gzip
+
+    # Example local gate. Replace the hash before use:
+    # basicauth {
+    #     chima-user $2a$14$REPLACE_WITH_CADDY_HASH
+    # }
+
+    handle_path /codex-chima-app/* {
+        reverse_proxy 127.0.0.1:4222 {
+            header_up -Origin
+        }
+    }
+
+    handle {
+        root * /opt/codex-chima-v1/public-gui
+        file_server
+    }
+}

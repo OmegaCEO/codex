@@ -1,0 +1,32 @@
+# Disabled example only. Do not symlink into sites-enabled until the hostname,
+# TLS, and access gate are chosen.
+
+server {
+    listen 443 ssl http2;
+    server_name codex-chima.example.com;
+
+    # ssl_certificate /etc/letsencrypt/live/codex-chima.example.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/codex-chima.example.com/privkey.pem;
+
+    # Example local gate. Replace the htpasswd path before use:
+    # auth_basic "Codex CHIMA";
+    # auth_basic_user_file /etc/nginx/.codex-chima-v1.htpasswd;
+
+    root /opt/codex-chima-v1/public-gui;
+    index index.html;
+
+    location /codex-chima-app/ {
+        proxy_pass http://127.0.0.1:4222/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Origin "";
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

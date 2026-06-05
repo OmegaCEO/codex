@@ -76,6 +76,27 @@ Keep it loopback-only for first tests. For remote testing, prefer Tailscale or a
 locked-down reverse proxy with explicit auth. Do not expose app-server directly
 on a public interface.
 
+## Public GUI Staging
+
+Install static GUI files and disabled reverse-proxy templates:
+
+```bash
+sudo ./scripts/chima/server/install-public-gui-staging.sh
+```
+
+Defaults:
+
+```text
+Static GUI:      /opt/codex-chima-v1/public-gui
+Proxy templates: /opt/codex-chima-v1/proxy-templates
+App-server path: /codex-chima-app/*
+```
+
+The installer does not enable a route. The GUI can check `/readyz` and perform a
+WebSocket `initialize` handshake through a reverse proxy. The proxy must sit
+behind an explicit access gate and strip the browser `Origin` header before
+forwarding WebSocket traffic to the loopback app-server.
+
 ## Build And Install In One Step
 
 ```bash

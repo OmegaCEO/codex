@@ -109,3 +109,20 @@ Server use is practical for CLI, `codex exec`, `codex app-server`, and daemon-st
 remote-control experiments. The Electron desktop shell is not the server target.
 
 See `scripts/chima/server/README.md` for the server test kit.
+
+## Public GUI Staging
+
+The server kit includes a staged public GUI shell:
+
+```bash
+sudo ./scripts/chima/server/install-public-gui-staging.sh
+```
+
+It installs static files under `/opt/codex-chima-v1/public-gui` and disabled Caddy
+and Nginx examples under `/opt/codex-chima-v1/proxy-templates`.
+
+Do not expose the loopback app-server directly. Put the GUI behind Cloudflare
+Access, Tailscale/VPN-only ingress, or a reverse proxy auth gate. The proxy path
+`/codex-chima-app/*` should forward to `http://127.0.0.1:4222/` and strip the
+browser `Origin` header before WebSocket forwarding, because app-server rejects
+browser-origin WebSockets by design.
